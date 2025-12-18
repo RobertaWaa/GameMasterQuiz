@@ -1,5 +1,25 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+.Python
 *.pyo
+
+# Data files
 data/users.json
 data/scores.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp
+*.tmp
+*.temp
