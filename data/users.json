@@ -1,0 +1,22 @@
+{
+  "Roberta": {
+    "password_hash": "a55813aebbf924ff6d9c63f230d8669399b0199113fee1ad8a7b83654d9d0dfa",
+    "games_played": 4,
+    "total_score": 110
+  },
+  "Necula": {
+    "password_hash": "da484f69dd84599a1d520401e1117dde795873216991a45a0b169550a063a503",
+    "games_played": 3,
+    "total_score": 50
+  },
+  "Ana": {
+    "password_hash": "a55813aebbf924ff6d9c63f230d8669399b0199113fee1ad8a7b83654d9d0dfa",
+    "games_played": 3,
+    "total_score": 70
+  },
+  "Maria": {
+    "password_hash": "a55813aebbf924ff6d9c63f230d8669399b0199113fee1ad8a7b83654d9d0dfa",
+    "games_played": 1,
+    "total_score": 0
+  }
+}

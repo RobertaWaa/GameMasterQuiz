@@ -1,0 +1,56 @@
+{
+  "category": "HISTORY",
+  "description": "Test your knowledge of gaming history",
+  "questions": [
+    {
+      "question": "Which company created the first commercially successful video game 'Pong'?",
+      "options": [
+        "Nintendo",
+        "Atari",
+        "Sega",
+        "Microsoft"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What year was the original PlayStation released?",
+      "options": [
+        "1992",
+        "1994",
+        "1996",
+        "1998"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which game is credited with popularizing the battle royale genre?",
+      "options": [
+        "Fortnite",
+        "PUBG",
+        "Apex Legends",
+        "Call of Duty: Warzone"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What was the first video game to feature a save function?",
+      "options": [
+        "The Legend of Zelda",
+        "Super Mario Bros.",
+        "Final Fantasy",
+        "Metroid"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which console was the first to use CDs instead of cartridges?",
+      "options": [
+        "Sega Saturn",
+        "PlayStation",
+        "Sega CD",
+        "Nintendo 64"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

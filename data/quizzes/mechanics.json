@@ -1,0 +1,56 @@
+{
+  "category": "MECHANICS",
+  "description": "Test your knowledge of game mechanics",
+  "questions": [
+    {
+      "question": "What does 'DPS' stand for in gaming?",
+      "options": [
+        "Damage Per Second",
+        "Defense Point System",
+        "Digital Play Style",
+        "Double Player Score"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is a 'speedrun'?",
+      "options": [
+        "Completing a game as fast as possible",
+        "Playing with increased movement speed",
+        "A type of racing game",
+        "A game bug"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What does 'NPC' stand for?",
+      "options": [
+        "Non-Player Character",
+        "New Player Character",
+        "Network Play Control",
+        "Non-Playable Content"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is 'respawning' in games?",
+      "options": [
+        "Repeating a level",
+        "A character coming back to life after death",
+        "Saving the game",
+        "A type of power-up"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'MMO' stand for?",
+      "options": [
+        "Massive Multiplayer Online",
+        "Multiple Mode Operation",
+        "Main Mission Objective",
+        "Multiplayer Match Online"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

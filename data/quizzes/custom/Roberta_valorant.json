@@ -1,0 +1,27 @@
+{
+  "category": "CUSTOM",
+  "description": "Custom quiz by Roberta",
+  "created_by": "Roberta",
+  "questions": [
+    {
+      "question": "Who is the best Agent?",
+      "options": [
+        "Reyna",
+        "Gekko",
+        "Sage",
+        "Omen"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What role uses smokes?",
+      "options": [
+        "Initiator",
+        "Controller",
+        "Duelist",
+        "Sentinel"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "leaderboard": [
+    {
+      "username": "Roberta",
+      "score": 50,
+      "quiz": "HISTORY",
+      "date": "2025-12-18 01:46"
+    },
+    {
+      "username": "Necula",
+      "score": 40,
+      "quiz": "HISTORY",
+      "date": "2025-12-18 01:51"
+    },
+    {
+      "username": "Roberta",
+      "score": 30,
+      "quiz": "CHARACTERS",
+      "date": "2025-12-18 01:47"
+    },
+    {
+      "username": "Ana",
+      "score": 30,
+      "quiz": "MECHANICS",
+      "date": "2025-12-18 01:53"
+    },
+    {
+      "username": "Roberta",
+      "score": 20,
+      "quiz": "MECHANICS",
+      "date": "2025-12-18 01:47"
+    },
+    {
+      "username": "Ana",
+      "score": 20,
+      "quiz": "HISTORY",
+      "date": "2025-12-18 01:53"
+    },
+    {
+      "username": "Ana",
+      "score": 20,
+      "quiz": "CHARACTERS",
+      "date": "2025-12-18 01:53"
+    },
+    {
+      "username": "Necula",
+      "score": 10,
+      "quiz": "MECHANICS",
+      "date": "2025-12-18 01:52"
+    },
+    {
+      "username": "Roberta",
+      "score": 10,
+      "quiz": "Roberta_valorant",
+      "date": "2025-12-18 01:57"
+    },
+    {
+      "username": "Necula",
+      "score": 0,
+      "quiz": "CHARACTERS",
+      "date": "2025-12-18 01:52"
+    },
+    {
+      "username": "Maria",
+      "score": 0,
+      "quiz": "HISTORY",
+      "date": "2025-12-18 01:54"
+    }
+  ],
+  "user_stats": {
+    "Roberta": {
+      "total_games": 4,
+      "total_score": 110,
+      "average_score": 27.5
+    },
+    "Necula": {
+      "total_games": 3,
+      "total_score": 50,
+      "average_score": 16.666666666666668
+    },
+    "Ana": {
+      "total_games": 3,
+      "total_score": 70,
+      "average_score": 23.333333333333332
+    },
+    "Maria": {
+      "total_games": 1,
+      "total_score": 0,
+      "average_score": 0.0
+    }
+  }
+}

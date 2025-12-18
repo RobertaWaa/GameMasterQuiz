@@ -1,0 +1,56 @@
+{
+  "category": "CHARACTERS",
+  "description": "How well do you know gaming characters?",
+  "questions": [
+    {
+      "question": "Which character is known for saying 'It's-a me!'?",
+      "options": [
+        "Sonic",
+        "Mario",
+        "Link",
+        "Pikachu"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the name of the protagonist in The Legend of Zelda series?",
+      "options": [
+        "Zelda",
+        "Link",
+        "Ganon",
+        "Epona"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which character is a blue hedgehog?",
+      "options": [
+        "Mario",
+        "Sonic",
+        "Crash Bandicoot",
+        "Spyro"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the name of the main character in the Halo series?",
+      "options": [
+        "Master Chief",
+        "Commander Shepard",
+        "Samus Aran",
+        "Gordon Freeman"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which character uses a crowbar as their primary weapon?",
+      "options": [
+        "Duke Nukem",
+        "Gordon Freeman",
+        "Solid Snake",
+        "Lara Croft"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
