@@ -44,6 +44,12 @@
     },
     {
       "username": "Necula",
+      "score": 20,
+      "quiz": "Roberta_valorant",
+      "date": "2025-12-18 04:07"
+    },
+    {
+      "username": "Necula",
       "score": 10,
       "quiz": "MECHANICS",
       "date": "2025-12-18 01:52"
@@ -74,9 +80,9 @@
       "average_score": 27.5
     },
     "Necula": {
-      "total_games": 3,
-      "total_score": 50,
-      "average_score": 16.666666666666668
+      "total_games": 4,
+      "total_score": 70,
+      "average_score": 17.5
     },
     "Ana": {
       "total_games": 3,
