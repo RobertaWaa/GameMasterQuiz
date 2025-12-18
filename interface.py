@@ -47,40 +47,6 @@ class GameMasterApp:
         for widget in self.root.winfo_children():
             widget.destroy()
     
-    def create_scrollable_frame(self, parent):
-        """Create a scrollable frame and return container, canvas, scrollable_frame"""
-        # Create main container
-        container = tk.Frame(parent, bg=self.bg_color)
-        container.pack(fill="both", expand=True)
-        
-        # Create a canvas with scrollbar
-        canvas = tk.Canvas(container, bg=self.bg_color, highlightthickness=0)
-        scrollbar = tk.Scrollbar(container, orient="vertical", command=canvas.yview)
-        scrollable_frame = tk.Frame(canvas, bg=self.bg_color)
-        
-        scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-        
-        # Pack canvas and scrollbar
-        canvas.pack(side="left", fill="both", expand=True, padx=(20, 0))
-        scrollbar.pack(side="right", fill="y")
-        
-        # Bind mouse wheel for scrolling
-        def _on_mousewheel(event):
-            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        
-        # Bind mouse wheel for Windows and Mac
-        canvas.bind_all("<MouseWheel>", _on_mousewheel)
-        canvas.bind_all("<Button-4>", lambda e: canvas.yview_scroll(-1, "units"))
-        canvas.bind_all("<Button-5>", lambda e: canvas.yview_scroll(1, "units"))
-        
-        return container, canvas, scrollable_frame
-    
     def show_login_screen(self):
         """Display login/registration screen"""
         self.clear_window()
@@ -238,7 +204,7 @@ class GameMasterApp:
         
         buttons = [
             ("Play Quiz", self.show_quiz_selection),
-            ("Leaderboard", self.show_leaderboard_selection),
+            ("Leaderboard", self.show_leaderboard_selection),  # Changed to show selection
             ("Create Custom Quiz", self.show_custom_quiz_creator),
             ("Logout", self.logout)
         ]
@@ -312,131 +278,113 @@ class GameMasterApp:
         total_btn.pack(pady=15)
     
     def show_quiz_selection(self):
-       """Display quiz category selection"""
-       self.clear_window()
-    
-       # Title
-       title_label = tk.Label(
-           self.root, 
-           text="Select Quiz Category", 
-           font=("Arial", 24, "bold"),
-           bg=self.bg_color,
-           fg=self.main_color
-       )
-       title_label.pack(pady=20)
-    
-       # Back button
-       back_btn = tk.Button(
-           self.root,
-           text="← Back",
-           font=("Arial", 10),
-           bg=self.secondary_color,
-           fg=self.text_color,
-           command=self.show_main_menu
-       )
-       back_btn.place(x=10, y=10)
-    
-       # Create scrollable container
-       container, canvas, scrollable_frame = self.create_scrollable_frame(self.root)
-    
-       # Create a frame to center content inside scrollable_frame
-       center_frame = tk.Frame(scrollable_frame, bg=self.bg_color)
-       center_frame.pack(expand=True, fill="both")
-    
-       # Quiz categories frame - centered
-       categories_frame = tk.Frame(center_frame, bg=self.bg_color)
-       categories_frame.pack(pady=20, padx=20, fill="both", expand=True)
-    
-       # Default categories
-       categories = [
-           ("HISTORY", "Test your knowledge of gaming history"),
-           ("CHARACTERS", "How well do you know gaming characters?"),
-           ("MECHANICS", "Test your knowledge of game mechanics")
-       ]
-    
-       for i, (category, description) in enumerate(categories):
-           # Create a container frame for each category to control width
-           category_container = tk.Frame(categories_frame, bg=self.bg_color)
-           category_container.pack(pady=15, padx=20, fill="x")
+        """Display quiz category selection"""
+        self.clear_window()
         
-           # Center the category frame inside the container
-           category_frame = tk.Frame(category_container, bg=self.bg_color, 
-                                    highlightbackground=self.main_color, 
-                                    highlightthickness=2)
-           category_frame.pack()  # Default is center
+        # Title
+        title_label = tk.Label(
+            self.root, 
+            text="Select Quiz Category", 
+            font=("Arial", 24, "bold"),
+            bg=self.bg_color,
+            fg=self.main_color
+        )
+        title_label.pack(pady=20)
         
-           tk.Label(
-               category_frame,
-               text=category,
-               font=("Arial", 16, "bold"),
-               bg=self.bg_color,
-               fg=self.main_color
-           ).pack(pady=5)
+        # Back button
+        back_btn = tk.Button(
+            self.root,
+            text="← Back",
+            font=("Arial", 10),
+            bg=self.secondary_color,
+            fg=self.text_color,
+            command=self.show_main_menu
+        )
+        back_btn.place(x=10, y=10)
         
-           tk.Label(
-               category_frame,
-               text=description,
-               font=("Arial", 12),
-               bg=self.bg_color,
-               fg=self.text_color,
-               wraplength=400
-           ).pack(pady=5)
+        # Quiz categories frame
+        categories_frame = tk.Frame(self.root, bg=self.bg_color)
+        categories_frame.pack(pady=20)
         
-           tk.Button(
-               category_frame,
-               text="Play",
-               font=("Arial", 12),
-               bg=self.main_color,
-               fg="white",
-               width=15,
-               command=lambda cat=category: self.start_quiz(cat)
-           ).pack(pady=10)
-    
-       # Custom quizzes section
-       custom_quizzes = self.quiz_manager.get_available_quizzes()
-       custom_quizzes = [q for q in custom_quizzes if q[2]]  # Only custom quizzes
-    
-       if custom_quizzes:
-           tk.Label(
-               center_frame,
-               text="Custom Quizzes",
-               font=("Arial", 18, "bold"),
-               bg=self.bg_color,
-               fg=self.main_color
-           ).pack(pady=20)
+        # Default categories
+        categories = [
+            ("HISTORY", "Test your knowledge of gaming history"),
+            ("CHARACTERS", "How well do you know gaming characters?"),
+            ("MECHANICS", "Test your knowledge of game mechanics")
+        ]
         
-           custom_frame = tk.Frame(center_frame, bg=self.bg_color)
-           custom_frame.pack(pady=10)
-        
-           for quiz_name, _, _ in custom_quizzes:
-               display_name = quiz_name.replace("_", " ").title()
-               # Remove username prefix for display
-               if "_" in display_name and display_name.startswith(self.current_user.title()):
-                   display_name = display_name[len(self.current_user) + 1:] + " (Custom)"
+        for i, (category, description) in enumerate(categories):
+            category_frame = tk.Frame(categories_frame, bg=self.bg_color, highlightbackground=self.main_color, highlightthickness=2)
+            category_frame.pack(pady=15, padx=20, fill="x")
             
-               btn = tk.Button(
-                   custom_frame,
-                   text=display_name,
-                   font=("Arial", 12),
-                   bg=self.secondary_color,
-                   fg=self.text_color,
-                   width=30,
-                   command=lambda q=quiz_name: self.start_quiz("custom", q)
-               )
-               btn.pack(pady=5)
-       else:
-           # Show message if no custom quizzes
-           tk.Label(
-               center_frame,
-               text="No custom quizzes yet. Create your own!",
-               font=("Arial", 12, "italic"),
-               bg=self.bg_color,
-               fg=self.text_color
-           ).pack(pady=20)
-    
-       # Update canvas scroll region
-       canvas.update_idletasks()
-       canvas.config(scrollregion=canvas.bbox("all"))
+            tk.Label(
+                category_frame,
+                text=category,
+                font=("Arial", 16, "bold"),
+                bg=self.bg_color,
+                fg=self.main_color
+            ).pack(pady=5)
+            
+            tk.Label(
+                category_frame,
+                text=description,
+                font=("Arial", 12),
+                bg=self.bg_color,
+                fg=self.text_color,
+                wraplength=400
+            ).pack(pady=5)
+            
+            tk.Button(
+                category_frame,
+                text="Play",
+                font=("Arial", 12),
+                bg=self.main_color,
+                fg="white",
+                width=15,
+                command=lambda cat=category: self.start_quiz(cat)
+            ).pack(pady=10)
+        
+        # Custom quizzes section
+        custom_quizzes = self.quiz_manager.get_available_quizzes()
+        custom_quizzes = [q for q in custom_quizzes if q[2]]  # Only custom quizzes
+        
+        if custom_quizzes:
+            tk.Label(
+                self.root,
+                text="Custom Quizzes",
+                font=("Arial", 18, "bold"),
+                bg=self.bg_color,
+                fg=self.main_color
+            ).pack(pady=20)
+            
+            custom_frame = tk.Frame(self.root, bg=self.bg_color)
+            custom_frame.pack(pady=10)
+            
+            for quiz_name, _, _ in custom_quizzes:
+                display_name = quiz_name.replace("_", " ").title()
+                # Remove username prefix for display
+                if "_" in display_name and display_name.startswith(self.current_user.title()):
+                    display_name = display_name[len(self.current_user) + 1:] + " (Custom)"
+                
+                btn = tk.Button(
+                    custom_frame,
+                    text=display_name,
+                    font=("Arial", 12),
+                    bg=self.secondary_color,
+                    fg=self.text_color,
+                    width=30,
+                    command=lambda q=quiz_name: self.start_quiz("custom", q)
+                )
+                btn.pack(pady=5)
+        else:
+            # Show message if no custom quizzes
+            tk.Label(
+                self.root,
+                text="No custom quizzes yet. Create your own!",
+                font=("Arial", 12, "italic"),
+                bg=self.bg_color,
+                fg=self.text_color
+            ).pack(pady=20)
     
     def start_quiz(self, category, custom_quiz=None):
         """Start a quiz"""
@@ -452,9 +400,6 @@ class GameMasterApp:
         """Display the current quiz question"""
         self.clear_window()
         
-        # Create scrollable container
-        container, canvas, scrollable_frame = self.create_scrollable_frame(self.root)
-        
         # Get current question
         question_data = self.quiz_game.get_current_question()
         
@@ -465,7 +410,7 @@ class GameMasterApp:
         # Progress
         current, total = self.quiz_game.get_progress()
         progress_label = tk.Label(
-            scrollable_frame,
+            self.root,
             text=f"Question {current + 1} of {total}",
             font=("Arial", 12),
             bg=self.bg_color,
@@ -475,7 +420,7 @@ class GameMasterApp:
         
         # Score
         score_label = tk.Label(
-            scrollable_frame,
+            self.root,
             text=f"Score: {self.quiz_game.score}",
             font=("Arial", 12, "bold"),
             bg=self.bg_color,
@@ -485,7 +430,7 @@ class GameMasterApp:
         
         # Question
         question_label = tk.Label(
-            scrollable_frame,
+            self.root,
             text=question_data["question"],
             font=("Arial", 16, "bold"),
             bg=self.bg_color,
@@ -496,7 +441,7 @@ class GameMasterApp:
         question_label.pack(pady=30, padx=20)
         
         # Options frame
-        options_frame = tk.Frame(scrollable_frame, bg=self.bg_color)
+        options_frame = tk.Frame(self.root, bg=self.bg_color)
         options_frame.pack(pady=20)
         
         # Create option buttons
@@ -516,7 +461,7 @@ class GameMasterApp:
         
         # Quit button
         quit_btn = tk.Button(
-            scrollable_frame,
+            self.root,
             text="Quit Quiz",
             font=("Arial", 10),
             bg="#ffcccc",
@@ -524,10 +469,6 @@ class GameMasterApp:
             command=self.show_main_menu
         )
         quit_btn.pack(pady=20)
-        
-        # Update canvas scroll region
-        canvas.update_idletasks()
-        canvas.config(scrollregion=canvas.bbox("all"))
     
     def submit_answer(self, answer_index):
         """Submit answer and show feedback"""
@@ -553,12 +494,9 @@ class GameMasterApp:
         """Display quiz results"""
         self.clear_window()
         
-        # Create scrollable container
-        container, canvas, scrollable_frame = self.create_scrollable_frame(self.root)
-        
         # Title
         title_label = tk.Label(
-            scrollable_frame, 
+            self.root, 
             text="Quiz Complete! 🎉", 
             font=("Arial", 28, "bold"),
             bg=self.bg_color,
@@ -568,7 +506,7 @@ class GameMasterApp:
         
         # Score
         score_label = tk.Label(
-            scrollable_frame,
+            self.root,
             text=f"Your Score: {self.quiz_game.score}",
             font=("Arial", 36, "bold"),
             bg=self.bg_color,
@@ -586,7 +524,7 @@ class GameMasterApp:
             stats_text += f" | Global Rank: #{user_rank}"
         
         stats_label = tk.Label(
-            scrollable_frame,
+            self.root,
             text=stats_text,
             font=("Arial", 12),
             bg=self.bg_color,
@@ -609,7 +547,7 @@ class GameMasterApp:
             message = "Keep playing to improve your knowledge! 🎮"
         
         message_label = tk.Label(
-            scrollable_frame,
+            self.root,
             text=message,
             font=("Arial", 14),
             bg=self.bg_color,
@@ -619,7 +557,7 @@ class GameMasterApp:
         message_label.pack(pady=20)
         
         # Buttons frame
-        buttons_frame = tk.Frame(scrollable_frame, bg=self.bg_color)
+        buttons_frame = tk.Frame(self.root, bg=self.bg_color)
         buttons_frame.pack(pady=30)
         
         # Play again button
@@ -645,10 +583,6 @@ class GameMasterApp:
             command=self.show_main_menu
         )
         menu_btn.grid(row=0, column=1, padx=10)
-        
-        # Update canvas scroll region
-        canvas.update_idletasks()
-        canvas.config(scrollregion=canvas.bbox("all"))
     
     def show_leaderboard(self, lb_type="recent"):
         """Display the leaderboard"""
@@ -680,20 +614,17 @@ class GameMasterApp:
         )
         back_btn.place(x=10, y=10)
         
-        # Create scrollable container
-        container, canvas, scrollable_frame = self.create_scrollable_frame(self.root)
-        
         # Get leaderboard data based on type
         if lb_type == "recent":
-            leaderboard = self.quiz_game.get_leaderboard(limit=50)  # Increased limit
+            leaderboard = self.quiz_game.get_leaderboard(limit=20)
             headers = ["Rank", "Username", "Score", "Quiz", "Date"]
         else:
-            leaderboard = self.quiz_game.get_user_stats_leaderboard(limit=50)  # Increased limit
+            leaderboard = self.quiz_game.get_user_stats_leaderboard(limit=20)
             headers = ["Rank", "Username", "Total Score", "Games Played", "Avg. Score"]
         
         if not leaderboard:
             no_data_label = tk.Label(
-                scrollable_frame,
+                self.root,
                 text="No scores yet. Be the first to play!",
                 font=("Arial", 16),
                 bg=self.bg_color,
@@ -703,7 +634,7 @@ class GameMasterApp:
             return
         
         # Create table frame
-        table_frame = tk.Frame(scrollable_frame, bg=self.bg_color)
+        table_frame = tk.Frame(self.root, bg=self.bg_color)
         table_frame.pack(pady=20, padx=20, fill="both", expand=True)
         
         # Table headers
@@ -814,7 +745,7 @@ class GameMasterApp:
                 user_stats = self.quiz_game.scores.get("user_stats", {}).get(self.current_user, {})
                 if user_stats:
                     user_info = tk.Label(
-                        scrollable_frame,
+                        self.root,
                         text=f"Your rank: #{user_rank} | Total Score: {user_stats.get('total_score', 0)} | Games: {user_stats.get('total_games', 0)}",
                         font=("Arial", 11, "bold"),
                         bg="#ffd9ec",
@@ -822,10 +753,6 @@ class GameMasterApp:
                         pady=10
                     )
                     user_info.pack(pady=10, fill="x")
-        
-        # Update canvas scroll region
-        canvas.update_idletasks()
-        canvas.config(scrollregion=canvas.bbox("all"))
     
     def show_custom_quiz_creator(self):
         """Display custom quiz creator"""
@@ -863,8 +790,26 @@ class GameMasterApp:
         )
         instructions.pack(pady=10)
         
-        # Create scrollable container
-        container, canvas, scrollable_frame = self.create_scrollable_frame(self.root)
+        # Main frame with scrollbar
+        main_container = tk.Frame(self.root, bg=self.bg_color)
+        main_container.pack(pady=20, padx=20, fill="both", expand=True)
+        
+        # Create a canvas with scrollbar
+        canvas = tk.Canvas(main_container, bg=self.bg_color, highlightthickness=0)
+        scrollbar = tk.Scrollbar(main_container, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas, bg=self.bg_color)
+        
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+        
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Pack canvas and scrollbar
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
         
         # Quiz name
         tk.Label(
@@ -913,10 +858,6 @@ class GameMasterApp:
             command=self.create_custom_quiz
         )
         create_btn.grid(row=0, column=1, padx=10)
-        
-        # Update canvas scroll region
-        canvas.update_idletasks()
-        canvas.config(scrollregion=canvas.bbox("all"))
     
     def add_question_widget(self):
         """Add a question input widget"""
