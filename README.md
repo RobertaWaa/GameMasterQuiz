@@ -32,21 +32,21 @@ The application automatically creates:
 
 ## Project Architecture
 
-GameMasterQuiz/
-├── main.py                 # Application entry point and main controller
-├── auth.py                 # User authentication with password hashing
-├── quiz_logic.py           # Core quiz logic, scoring, and leaderboards
-├── quiz_manager.py         # Quiz file management and custom quiz creation
-├── interface.py            # Tkinter GUI implementation with pink theme
-├── data/                   # Persistent data storage
-│   ├── users.json          # Encrypted user credentials and basic stats
-│   ├── scores.json         # Leaderboards and comprehensive user statistics
-│   └── quizzes/            # Quiz question repositories
-│       ├── history.json    # Gaming history questions
-│       ├── characters.json # Game character questions
-│       ├── mechanics.json  # Game mechanics questions
-│       └── custom/         # User-generated custom quizzes
-└── README.md               # Project documentation
+### GameMasterQuiz/
+### ├── main.py                 # Application entry point and main controller
+### ├── auth.py                 # User authentication with password hashing
+### ├── quiz_logic.py           # Core quiz logic, scoring, and leaderboards
+### ├── quiz_manager.py         # Quiz file management and custom quiz creation
+### ├── interface.py            # Tkinter GUI implementation with pink theme
+### ├── data/                   # Persistent data storage
+### │   ├── users.json          # Encrypted user credentials and basic stats
+### │   ├── scores.json         # Leaderboards and comprehensive user statistics
+### │   └── quizzes/            # Quiz question repositories
+### │       ├── history.json    # Gaming history questions
+### │       ├── characters.json # Game character questions
+### │       ├── mechanics.json  # Game mechanics questions
+### │       └── custom/         # User-generated custom quizzes
+### └── README.md               # Project documentation
 
 ## Security Implementation
 
