@@ -4,13 +4,13 @@ A Python-based gaming quiz platform for video game enthusiasts.
 
 ## Features
 
-- **User Authentication**: Secure login/registration with password hashing using SHA-256 with salt
-- **Quiz Categories**: HISTORY, CHARACTERS, and MECHANICS gaming quizzes (5 questions each)
-- **Custom Quizzes**: Create and play your own gaming quizzes
-- **Dual Leaderboards**: Recent high scores and total score ranking system
-- **Progress Tracking**: Save scores, game history, and global ranking
-- **Modern GUI**: Beautiful pink-themed Tkinter interface
-- **Local Data Storage**: All data saved in JSON files (no database required)
+- User Authentication: Secure login/registration with password hashing using SHA-256 with salt
+- Quiz Categories: HISTORY, CHARACTERS, and MECHANICS gaming quizzes (5 questions each)
+- Custom Quizzes: Create and play your own gaming quizzes
+- Dual Leaderboards: Recent high scores and total score ranking system
+- Progress Tracking: Save scores, game history, and global ranking
+- Modern GUI: Beautiful pink-themed Tkinter interface
+- Local Data Storage: All data saved in JSON files (no database required)
 
 ## Installation & Setup
 
@@ -82,6 +82,12 @@ The application automatically creates:
 - Recent Scores: Top individual quiz performances
 - Total Ranking: Overall leaderboard based on cumulative scores
 - Personal Stats: Your position in the global ranking system
+
+### 5. Hall of Fame & Diploma
+- Champion Diploma: Special recognition for the player with the highest total score
+- Progress Tracking: See how close you are to becoming the champion
+- Encouragement System: Motivational messages to keep you playing and improving
+
 
 ## Technical Details
 

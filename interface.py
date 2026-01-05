@@ -54,7 +54,7 @@ class GameMasterApp:
         # Title
         title_label = tk.Label(
             self.root, 
-            text="🎮 GameMaster Quiz 🎮", 
+            text="🎮 Game Master Quiz 🎮", 
             font=("Arial", 28, "bold"),
             bg=self.bg_color,
             fg=self.main_color
@@ -204,7 +204,8 @@ class GameMasterApp:
         
         buttons = [
             ("Play Quiz", self.show_quiz_selection),
-            ("Leaderboard", self.show_leaderboard_selection),  # Changed to show selection
+            ("Leaderboard", self.show_leaderboard_selection),  
+            ("Diploma", self.show_diploma_screen),  # NEW: Added Diploma button
             ("Create Custom Quiz", self.show_custom_quiz_creator),
             ("Logout", self.logout)
         ]
@@ -988,3 +989,271 @@ class GameMasterApp:
         self.current_user = None
         self.quiz_game.current_user = None
         self.show_login_screen()
+
+
+    def show_diploma_screen(self):
+        """Display the diploma screen"""
+        self.clear_window()
+        
+        # Get best player info
+        best_username, best_score = self.quiz_game.get_best_player()
+        user_score, user_rank = self.quiz_game.get_user_score_and_rank(self.current_user)
+        score_difference = self.quiz_game.get_score_difference(self.current_user)
+        
+        # Check if current user is the best
+        is_best_player = (self.current_user == best_username)
+        
+        # Title
+        title_label = tk.Label(
+            self.root, 
+            text="🏆 Hall of Fame 🏆", 
+            font=("Arial", 28, "bold"),
+            bg=self.bg_color,
+            fg=self.main_color
+        )
+        title_label.pack(pady=20)
+        
+        # Back button
+        back_btn = tk.Button(
+            self.root,
+            text="← Back",
+            font=("Arial", 10),
+            bg=self.secondary_color,
+            fg=self.text_color,
+            command=self.show_main_menu
+        )
+        back_btn.place(x=10, y=10)
+        
+        # Main content frame
+        content_frame = tk.Frame(self.root, bg=self.bg_color)
+        content_frame.pack(pady=30, padx=20, fill="both", expand=True)
+        
+        if is_best_player:
+            # Show diploma for best player
+            self.show_victory_diploma(content_frame, user_score, user_rank)
+        else:
+            # Show encouragement message
+            self.show_encouragement_message(content_frame, best_username, best_score, 
+                                          user_score, user_rank, score_difference)
+        
+        # Buttons frame
+        buttons_frame = tk.Frame(self.root, bg=self.bg_color)
+        buttons_frame.pack(pady=20)
+        
+        # Play Quiz button to improve score
+        play_btn = tk.Button(
+            buttons_frame,
+            text="Play Quiz to Improve Score",
+            font=("Arial", 12, "bold"),
+            bg=self.main_color,
+            fg="white",
+            width=25,
+            command=self.show_quiz_selection
+        )
+        play_btn.pack(pady=5)
+        
+        # Leaderboard button
+        leaderboard_btn = tk.Button(
+            buttons_frame,
+            text="View Leaderboard",
+            font=("Arial", 12),
+            bg=self.secondary_color,
+            fg=self.text_color,
+            width=25,
+            command=self.show_leaderboard_selection
+        )
+        leaderboard_btn.pack(pady=5)
+    
+    def show_victory_diploma(self, parent_frame, user_score, user_rank):
+        """Display victory diploma for the best player"""
+        # Decorative frame for diploma
+        diploma_frame = tk.Frame(
+            parent_frame,
+            bg="gold",
+            highlightbackground="orange",
+            highlightthickness=5,
+            relief="ridge"
+        )
+        diploma_frame.pack(pady=20, padx=20, fill="both", expand=True)
+        
+        # Inner frame
+        inner_frame = tk.Frame(diploma_frame, bg="ivory")
+        inner_frame.pack(pady=20, padx=20, fill="both", expand=True)
+        
+        # Diploma title
+        tk.Label(
+            inner_frame,
+            text="OFFICIAL DIPLOMA",
+            font=("Times New Roman", 36, "bold"),
+            bg="ivory",
+            fg="darkred"
+        ).pack(pady=20)
+        
+        # Decorative line
+        tk.Frame(inner_frame, bg="gold", height=3).pack(fill="x", padx=50, pady=10)
+        
+        # Awarded to text
+        tk.Label(
+            inner_frame,
+            text="Awarded to",
+            font=("Times New Roman", 20),
+            bg="ivory",
+            fg="black"
+        ).pack(pady=10)
+        
+        # Username (in fancy font)
+        tk.Label(
+            inner_frame,
+            text=self.current_user,
+            font=("Brush Script MT", 48),
+            bg="ivory",
+            fg="purple"
+        ).pack(pady=20)
+        
+        # Achievement text
+        tk.Label(
+            inner_frame,
+            text="For achieving the highest total score in",
+            font=("Times New Roman", 18),
+            bg="ivory",
+            fg="black"
+        ).pack(pady=10)
+        
+        tk.Label(
+            inner_frame,
+            text="Game Master Quiz",
+            font=("Times New Roman", 22, "bold"),
+            bg="ivory",
+            fg="darkblue"
+        ).pack(pady=10)
+        
+        # Score info
+        tk.Label(
+            inner_frame,
+            text=f"Total Score: {user_score:,} points",
+            font=("Arial", 16, "bold"),
+            bg="ivory",
+            fg="darkgreen"
+        ).pack(pady=15)
+        
+        tk.Label(
+            inner_frame,
+            text=f"Global Rank: #{user_rank}",
+            font=("Arial", 14),
+            bg="ivory",
+            fg="darkblue"
+        ).pack(pady=5)
+        
+        # Decorative element
+        tk.Label(
+            inner_frame,
+            text="🏆 CHAMPION 🏆",
+            font=("Arial", 24, "bold"),
+            bg="ivory",
+            fg="orange"
+        ).pack(pady=30)
+        
+        # Date
+        from datetime import datetime
+        current_date = datetime.now().strftime("%B %d, %Y")
+        tk.Label(
+            inner_frame,
+            text=f"Awarded on {current_date}",
+            font=("Times New Roman", 14, "italic"),
+            bg="ivory",
+            fg="gray"
+        ).pack(pady=10)
+        
+        # Congratulatory message
+        tk.Label(
+            inner_frame,
+            text="Congratulations! You are the ultimate gaming quiz master!",
+            font=("Arial", 12),
+            bg="ivory",
+            fg="darkgreen",
+            wraplength=500
+        ).pack(pady=20)
+    
+    def show_encouragement_message(self, parent_frame, best_username, best_score, 
+                                 user_score, user_rank, score_difference):
+        """Display encouragement message for non-best players"""
+        # Current stats frame
+        stats_frame = tk.Frame(parent_frame, bg=self.bg_color, relief="groove", bd=2)
+        stats_frame.pack(pady=20, padx=20, fill="x")
+        
+        tk.Label(
+            stats_frame,
+            text="Your Current Stats",
+            font=("Arial", 16, "bold"),
+            bg=self.bg_color,
+            fg=self.main_color
+        ).pack(pady=10)
+        
+        # User stats
+        stats_text = f"Total Score: {user_score:,} points\n"
+        stats_text += f"Global Rank: #{user_rank}\n"
+        if best_username:
+            stats_text += f"Best Player: {best_username} ({best_score:,} points)"
+        
+        tk.Label(
+            stats_frame,
+            text=stats_text,
+            font=("Arial", 14),
+            bg=self.bg_color,
+            fg=self.text_color,
+            justify="center"
+        ).pack(pady=15, padx=20)
+        
+        # Encouragement frame
+        encouragement_frame = tk.Frame(parent_frame, bg="#e6f7ff", relief="raised", bd=3)
+        encouragement_frame.pack(pady=30, padx=20, fill="both", expand=True)
+        
+        # Crown icon for best player
+        tk.Label(
+            encouragement_frame,
+            text="👑",
+            font=("Arial", 48),
+            bg="#e6f7ff",
+            fg="gold"
+        ).pack(pady=10)
+        
+        # Message
+        message = "Keep Playing to Earn the Champion Diploma!\n\n"
+        
+        if score_difference > 0:
+            message += f"You need {score_difference:,} more points\n"
+            message += f"to beat {best_username} and become the champion!\n\n"
+        
+        message += "Every quiz you play brings you closer to victory.\n"
+        message += "Test your gaming knowledge and claim the throne!"
+        
+        tk.Label(
+            encouragement_frame,
+            text=message,
+            font=("Arial", 14),
+            bg="#e6f7ff",
+            fg="darkblue",
+            justify="center",
+            wraplength=500
+        ).pack(pady=20, padx=30)
+        
+        # Motivational quote
+        quotes = [
+            "The master has failed more times than the beginner has even tried.",
+            "Every expert was once a beginner.",
+            "Champions keep playing until they get it right.",
+            "The only way to become better is to keep playing!",
+            "Greatness comes from consistent effort."
+        ]
+        
+        import random
+        quote = random.choice(quotes)
+        
+        tk.Label(
+            encouragement_frame,
+            text=f'"{quote}"',
+            font=("Arial", 12, "italic"),
+            bg="#e6f7ff",
+            fg="darkgreen",
+            wraplength=450
+        ).pack(pady=20)

@@ -187,3 +187,40 @@ class QuizGame:
     def is_quiz_complete(self):
         """Check if quiz is complete"""
         return self.current_question_index >= len(self.current_questions)
+    
+    def get_best_player(self):
+        """Get the player with the highest total score"""
+        if "user_stats" not in self.scores or not self.scores["user_stats"]:
+            return None, 0
+        
+        best_username = None
+        best_score = 0
+        
+        for username, stats in self.scores["user_stats"].items():
+            if stats["total_score"] > best_score:
+                best_score = stats["total_score"]
+                best_username = username
+        
+        return best_username, best_score
+    
+    def get_user_score_and_rank(self, username):
+        """Get user's total score and rank"""
+        if username not in self.scores.get("user_stats", {}):
+            return 0, None
+        
+        user_score = self.scores["user_stats"][username]["total_score"]
+        user_rank = self.get_user_rank(username)
+        
+        return user_score, user_rank
+    
+    def get_score_difference(self, username):
+        """Get how many points user needs to beat the best player"""
+        best_username, best_score = self.get_best_player()
+        
+        if not best_username or username == best_username:
+            return 0
+        
+        user_score = self.scores.get("user_stats", {}).get(username, {}).get("total_score", 0)
+        difference = best_score - user_score
+        
+        return difference
