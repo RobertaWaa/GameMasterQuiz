@@ -650,6 +650,7 @@ class GameMasterApp:
         safe_name = "".join(c for c in quiz_name if c.isalnum() or c in (' ', '-', '_')).strip()
         safe_name = safe_name.replace(' ', '_').lower()
 
+        # Save in DEFAULT quizzes directory
         filepath = f"data/quizzes/{safe_name}.json"
 
         # Check if already exists
@@ -674,7 +675,7 @@ class GameMasterApp:
             with open(filepath, 'w') as f:
                 json.dump(new_quiz, f, indent=2)
 
-            # Now edit the new quiz
+            # Now edit the new quiz (False = not custom)
             self.edit_quiz(safe_name, filepath, False)
         except Exception as e:
             messagebox.showerror("Error", f"Failed to create quiz: {e}")

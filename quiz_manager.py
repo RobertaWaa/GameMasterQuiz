@@ -166,24 +166,24 @@ class QuizManager:
         """Get list of all available quizzes"""
         quizzes = []
 
-        # Add ALL quizzes from data/quizzes/ directory (these are DEFAULT quizzes)
+        # Add quizzes from data/quizzes/ directory (DEFAULT quizzes)
         quizzes_dir = "data/quizzes"
         if os.path.exists(quizzes_dir):
             for filename in os.listdir(quizzes_dir):
                 if filename.endswith('.json'):
                     filepath = os.path.join(quizzes_dir, filename)
-                    if os.path.getsize(filepath) > 0:
+                    if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
                         quiz_name = filename[:-5]  # Remove .json
-                        # ALL quizzes in main quizzes directory are DEFAULT
-                        quizzes.append((quiz_name, filepath, False))  # False = default
+                        # All quizzes in main directory are default (not custom)
+                        quizzes.append((quiz_name, filepath, False))  # False = not custom
 
-        # Add custom quizzes from custom subdirectory
+        # Add CUSTOM quizzes from custom subdirectory
         custom_dir = "data/quizzes/custom"
         if os.path.exists(custom_dir):
             for filename in os.listdir(custom_dir):
                 if filename.endswith('.json'):
                     filepath = os.path.join(custom_dir, filename)
-                    if os.path.getsize(filepath) > 0:
+                    if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
                         quiz_name = filename[:-5]  # Remove .json
                         quizzes.append((quiz_name, filepath, True))  # True = custom
 
