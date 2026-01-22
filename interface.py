@@ -96,12 +96,12 @@ class GameMasterApp:
 
         # Admin functions
         admin_functions = [
-            ("📝 Manage Quizzes", self.manage_quizzes),
-            ("📊 Reset All Scores", self.reset_all_scores),
-            ("🔄 Reset Quiz Scores", self.reset_quiz_scores),
-            ("💾 Backup & Restore", self.show_backup_restore),  # NEW
-            ("👥 View All Users", self.view_all_users),
-            ("📋 View Statistics", self.view_statistics)
+            ("Manage Quizzes", self.manage_quizzes),
+            ("Reset All Scores", self.reset_all_scores),
+            ("Reset Quiz Scores", self.reset_quiz_scores),
+            ("Backup & Restore", self.show_backup_restore),
+            ("View All Users", self.view_all_users),
+            ("View Statistics", self.view_statistics)
         ]
 
         for i, (text, command) in enumerate(admin_functions):
@@ -124,7 +124,7 @@ class GameMasterApp:
         # Title
         title_label = tk.Label(
             self.root,
-            text="📝 Quiz Management",
+            text="Quiz Management",
             font=("Arial", 24, "bold"),
             bg=self.bg_color,
             fg="#800080"
@@ -147,10 +147,10 @@ class GameMasterApp:
         # Warning label
         warning_label = tk.Label(
             self.root,
-            text="⚠️  Caution: Deleting quizzes will remove them permanently!",
+            text="Caution: Deleting quizzes will remove them permanently!",
             font=("Arial", 10, "bold"),
-            bg="#fffacd",  # Light yellow background
-            fg="#b8860b",  # Dark goldenrod text
+            bg="#fffacd",  
+            fg="#b8860b",  
             relief="groove",
             bd=2
         )
@@ -273,7 +273,7 @@ class GameMasterApp:
             ).pack(side="left", padx=5)
 
             # Delete button
-            delete_bg = "#ff6666"  # Red for delete
+            delete_bg = "#ff6666"
             tk.Button(
                 action_frame,
                 text="Delete",
@@ -684,7 +684,7 @@ class GameMasterApp:
         """Reset all scores and leaderboards"""
         response = messagebox.askyesno(
             "Confirm Reset",
-            "⚠️  WARNING: This will reset ALL scores for ALL users!\n\n"
+            "WARNING: This will reset ALL scores for ALL users!\n\n"
             "All leaderboards and user statistics will be cleared.\n"
             "This action cannot be undone!\n\n"
             "Are you sure you want to continue?"
@@ -966,7 +966,7 @@ class GameMasterApp:
         # Title
         title_label = tk.Label(
             self.root,
-            text="📊 System Statistics",
+            text="System Statistics",
             font=("Arial", 24, "bold"),
             bg=self.bg_color,
             fg="#800080"
@@ -1328,7 +1328,7 @@ class GameMasterApp:
         main_container = tk.Frame(self.root, bg=self.bg_color)
         main_container.pack(fill="both", expand=True, padx=20, pady=10)
 
-        # ========== DEFAULT QUIZZES SECTION ==========
+        #DEFAULT QUIZZES SECTION
         if default_quizzes:
             # Label for default quizzes
             tk.Label(
@@ -1376,7 +1376,7 @@ class GameMasterApp:
             canvas.pack(side="left", fill="both", expand=True)
             scrollbar.pack(side="right", fill="y")
 
-            # ========== DISPLAY DEFAULT QUIZZES AS CENTERED RECTANGLES ==========
+            # DISPLAY DEFAULT QUIZZES AS CENTERED RECTANGLES
             for quiz_name, filepath, is_custom in default_quizzes:
                 # Load quiz to get description
                 try:
@@ -1445,7 +1445,7 @@ class GameMasterApp:
                 fg=self.text_color
             ).pack(pady=50)
 
-        # ========== CUSTOM QUIZZES SECTION ==========
+        # CUSTOM QUIZZES SECTION 
         if custom_quizzes:
             # Separator line
             separator = tk.Frame(main_container, height=2, bg=self.main_color)
@@ -1633,13 +1633,13 @@ class GameMasterApp:
         percentage = (self.quiz_game.score / max_score) * 100 if max_score > 0 else 0
 
         if percentage >= 80:
-            message = "Excellent! You're a true gaming master! 🏆"
+            message = "Excellent! You're a true gaming master!"
         elif percentage >= 60:
-            message = "Great job! You know your games well! 👍"
+            message = "Great job! You know your games well!"
         elif percentage >= 40:
-            message = "Good effort! Keep practicing! 💪"
+            message = "Good effort! Keep practicing!"
         else:
-            message = "Keep playing to improve your knowledge! 🎮"
+            message = "Keep playing to improve your knowledge!"
 
         message_label = tk.Label(
             self.root,
@@ -2442,7 +2442,7 @@ class GameMasterApp:
         # Title
         title_label = tk.Label(
             self.root,
-            text="💾 Backup & Restore",
+            text="Backup & Restore",
             font=("Arial", 24, "bold"),
             bg=self.bg_color,
             fg="#800080"

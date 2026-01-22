@@ -20,7 +20,7 @@ class QuizGame:
         self.current_question_index = 0
         self.score = 0
         self.current_user = None
-        self.auth_system = auth_system  # Add reference to auth system
+        self.auth_system = auth_system  
     
     def load_scores(self):
         """Load scores from JSON file"""

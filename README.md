@@ -1,4 +1,4 @@
-# GameMaster Quiz 🎮
+# GameMaster Quiz 
 
 A Python-based gaming quiz platform for video game enthusiasts.
 
